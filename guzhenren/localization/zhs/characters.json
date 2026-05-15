@@ -1,0 +1,17 @@
+{
+  "GUZHENREN-FANG_YUAN_CHARACTER.aromaPrinciple": "[sine][blue]此处虽险，倒也正好炼心。[/blue][/sine]",
+  "GUZHENREN-FANG_YUAN_CHARACTER.banter.alive.endTurnPing": "先看清局势。",
+  "GUZHENREN-FANG_YUAN_CHARACTER.banter.dead.endTurnPing": "成败本就是常事。",
+  "GUZHENREN-FANG_YUAN_CHARACTER.cardsModifierDescription": "方源的卡牌现在会出现在奖励和商店中。",
+  "GUZHENREN-FANG_YUAN_CHARACTER.cardsModifierTitle": "方源卡牌",
+  "GUZHENREN-FANG_YUAN_CHARACTER.description": "从蛊界而来的魔道巨擘。以转数、流派与蛊虫构筑自己的道路。",
+  "GUZHENREN-FANG_YUAN_CHARACTER.eventDeathPrevention": "若能活下去，些许代价又算什么。",
+  "GUZHENREN-FANG_YUAN_CHARACTER.goldMonologue": "资源，终归还是要拿在手里。",
+  "GUZHENREN-FANG_YUAN_CHARACTER.possessiveAdjective": "他的",
+  "GUZHENREN-FANG_YUAN_CHARACTER.pronounObject": "他",
+  "GUZHENREN-FANG_YUAN_CHARACTER.pronounPossessive": "他的",
+  "GUZHENREN-FANG_YUAN_CHARACTER.pronounSubject": "他",
+  "GUZHENREN-FANG_YUAN_CHARACTER.title": "古月方源",
+  "GUZHENREN-FANG_YUAN_CHARACTER.titleObject": "古月方源",
+  "GUZHENREN-FANG_YUAN_CHARACTER.unlockText": "用[pink]{Prerequisite}[/pink]进行一局游戏来解锁这个角色。"
+}

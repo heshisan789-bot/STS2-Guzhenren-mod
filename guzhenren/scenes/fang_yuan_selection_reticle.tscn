@@ -1,0 +1,98 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Core/Nodes/Combat/NSelectionReticle.cs" id="1_reticle"]
+
+[node name="SelectionReticle" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 240.0
+offset_bottom = 320.0
+pivot_offset = Vector2(120, 160)
+mouse_filter = 2
+script = ExtResource("1_reticle")
+
+[node name="TopLeft" type="ColorRect" parent="."]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 28.0
+offset_bottom = 6.0
+color = Color(0.9490196, 0.88235295, 0.67058825, 0.95)
+
+[node name="TopLeftSide" type="ColorRect" parent="."]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 6.0
+offset_bottom = 28.0
+color = Color(0.9490196, 0.88235295, 0.67058825, 0.95)
+
+[node name="TopRight" type="ColorRect" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -28.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 6.0
+grow_horizontal = 0
+color = Color(0.9490196, 0.88235295, 0.67058825, 0.95)
+
+[node name="TopRightSide" type="ColorRect" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -6.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 28.0
+grow_horizontal = 0
+color = Color(0.9490196, 0.88235295, 0.67058825, 0.95)
+
+[node name="BottomLeft" type="ColorRect" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = -6.0
+offset_right = 28.0
+offset_bottom = 0.0
+grow_vertical = 0
+color = Color(0.9490196, 0.88235295, 0.67058825, 0.95)
+
+[node name="BottomLeftSide" type="ColorRect" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = -28.0
+offset_right = 6.0
+offset_bottom = 0.0
+grow_vertical = 0
+color = Color(0.9490196, 0.88235295, 0.67058825, 0.95)
+
+[node name="BottomRight" type="ColorRect" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -6.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0.9490196, 0.88235295, 0.67058825, 0.95)
+
+[node name="BottomRightSide" type="ColorRect" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -28.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0.9490196, 0.88235295, 0.67058825, 0.95)
