@@ -29,6 +29,7 @@ public abstract class AbstractGuZhenRenCard : CustomCardModel
 
     public override string PortraitPath => GuZhenRenArtPaths.GetCardPortrait(GetType().Name);
     public override string BetaPortraitPath => GuZhenRenArtPaths.GetCardBetaPortrait(GetType().Name);
+    public override CardPoolModel VisualCardPool => ModelDb.CardPool<GuZhenRenCardPool>();
     protected override HashSet<CardTag> CanonicalTags => [];
     public override IEnumerable<CardKeyword> CanonicalKeywords => Array.Empty<CardKeyword>();
     protected override IEnumerable<DynamicVar> CanonicalVars => Array.Empty<DynamicVar>();

@@ -2,16 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://268wq68qds6e"
-path="res://.godot/imported/TisIcon.png-5bc9e3a228c9242bbf664dab54795b1d.ctex"
-metadata={
-"vram_texture": false
-}
+uid="uid://ctn0mu2kgdkng"
+valid=false
 
 [deps]
 
 source_file="res://guzhenren/images/character/FangYuan/TisIcon.png"
-dest_files=["res://.godot/imported/TisIcon.png-5bc9e3a228c9242bbf664dab54795b1d.ctex"]
 
 [params]
 

@@ -1,64 +1,75 @@
-# Guzhenren Demo
+# Guzhenren（蛊真人 / 方源）- 杀戮尖塔2 角色 MOD
 
-当前仓库已经具备以下 demo 组成：
+[![Godot 4.5](https://img.shields.io/badge/Godot-4.5-blue.svg)](https://godotengine.org/)
+[![C#](https://img.shields.io/badge/Language-C%23-green.svg)](https://learn.microsoft.com/dotnet/csharp/)
+[![STS2](https://img.shields.io/badge/Game-Slay%20the%20Spire%202-red.svg)](https://store.steampowered.com/app/2868840/Slay_the_Spire_2/)
 
-- `Guzhenren.dll`：C# 逻辑程序集
-- `Guzhenren.json`：模组清单
-- `guzhenren/`：本地图片、场景、文本资源
-- `export_presets.cfg`：Godot 导出 `Guzhenren.pck` 的预设
-- `scripts/package_demo.sh`：一键打包脚本
+## 简介
 
-## 打包 demo
+本项目为《杀戮尖塔2》(Slay the Spire 2) 开发的自定义角色 MOD，目标是把塔一 Java 版《蛊真人》MOD（方源）迁移到塔二（Godot 4.5 + C#/.NET）。
 
-先确保本机已安装：
+原则：以塔一 `other-lib/StS_Mod_GuZhenRen/` 作为玩法规格（source of truth），在塔二重写实现，尽量不改机制/卡牌。
 
-- Slay the Spire 2
-- Godot 4.5+
-- BaseLib 3.1.3
-- （可选）RitsuLib：当前 demo 不依赖 RitsuLib
+## 依赖
 
-如果你下载的是 `Godot 4.5.1 mono`，macOS 上通常安装成 `/Applications/Godot_mono.app`，脚本会自动识别；也可以手动指定：
+- BaseLib（本工程使用的版本随仓库内 `other-lib/BaseLib.*` 对照，但运行时以游戏 mods 目录里的 BaseLib 为准）
 
-```bash
-GODOT_BIN="/Applications/Godot_mono.app/Contents/MacOS/Godot" ./scripts/package_demo.sh
+## 特性（阶段性）
+
+- 单一角色卡池 `GuZhenRenCardPool`，内部按“道”拆分逻辑子池（便于后续局内筛选/屏蔽某些道）
+- 资源本地化：卡图/遗物/Power 图标统一放在 `guzhenren/images/`，不依赖 `other-lib` 的图片路径
+
+## 项目结构
+
+```
+src/cs/                      # C# 脚本（卡牌/遗物/Power/patch/工具等）
+guzhenren/
+  scenes/                    # Godot 场景（人物、UI等）
+  images/                    # 图片资源（卡图/遗物/能力图标等）
+  localization/              # 本地化（zhs/en）
+Guzhenren.json               # MOD 清单（manifest）
+export_presets.cfg           # Godot 导出 pck 预设
+scripts/package_demo.sh      # 一键构建/导出/打包（可选安装到游戏 mods）
+other-lib/                   # 对照塔一规格与参考工程（运行时不依赖）
 ```
 
-然后在仓库根目录执行：
+## 构建与打包
 
 ```bash
 ./scripts/package_demo.sh
 ```
 
-默认会输出到：
+如需指定 Godot：
+
+```bash
+GODOT_BIN="/Applications/Godot_mono.app/Contents/MacOS/Godot" ./scripts/package_demo.sh
+```
+
+输出默认在：
 
 ```text
 dist/Guzhenren/
 ```
 
-里面应当包含：
+包含：
 
 - `Guzhenren.dll`
 - `Guzhenren.pck`
 - `Guzhenren.json`
 
-如果想让脚本直接把文件安装到游戏的 `mods` 目录（避免手动复制），可以：
+可选：直接安装到游戏 mods 目录：
 
 ```bash
-INSTALL_DIR="/Users/ryan/Library/Application Support/Steam/steamapps/common/Slay the Spire 2/SlayTheSpire2.app/Contents/MacOS/mods" ./scripts/package_demo.sh
+INSTALL_DIR="/path/to/SlayTheSpire2.app/Contents/MacOS/mods" ./scripts/package_demo.sh
 ```
 
-## 当前 demo 内容
+## 常见坑
 
-- 角色卡图、能力图标、药水图、遗物图已切到本地资源
-- 方源已接入战斗立绘场景
-- 方源已接入角色小图标场景
-- 方源已接入能量球场景
-- 方源已接入休息点场景
-- 方源已接入商店场景
-- 方源已接入选角背景场景
+- 本地化必须在 `res://<manifest.id>/localization/<locale>/*.json`，不要覆盖原版的本地化目录
+- 关键词重复：STS2 会自动注入卡牌关键词文本；本地化里不要再手写“消耗/虚无/保留/不可打出”等关键词行
+- 选牌 API：`FromChooseACardScreen` 只适合少量选项，多选项优先 `FromSimpleGrid`
 
-## 已知缺口
+## 致谢
 
-- 当前机器若未安装 Godot 编辑器，则无法在本仓库内直接产出 `.pck`
-- 目前角色演示场景是静态贴图版，不是最终 Spine 成品
-- 仍有部分原版机制与卡牌尚未迁完，当前更接近“可进入并试玩的 demo”，不是完整正式版
+- Mega Crit《杀戮尖塔2》
+- BaseLib-StS2 项目与社区

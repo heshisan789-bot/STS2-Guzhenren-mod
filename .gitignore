@@ -1,3 +1,7 @@
-# Godot 4+ specific ignores
+bin/
+obj/
 .godot/
-/android/
+.vscode/
+.DS_Store
+*.user
+*.suo

@@ -20,7 +20,7 @@ public sealed class FangYuanCharacter : PlaceholderCharacterModel
     public override int StartingGold => 99;
 
     public override string CustomVisualPath => "res://guzhenren/scenes/fang_yuan_character.tscn";
-    public override string CustomIconTexturePath => "res://guzhenren/images/character/FangYuan/TisIcon.png";
+    public override string CustomIconTexturePath => "res://guzhenren/images/character/FangYuan/Button.png";
     public override string CustomIconPath => "res://guzhenren/scenes/fang_yuan_icon.tscn";
     public override string CustomEnergyCounterPath => "res://guzhenren/scenes/fang_yuan_energy_counter.tscn";
     public override string CustomRestSiteAnimPath => "res://guzhenren/scenes/fang_yuan_rest_site.tscn";
@@ -55,7 +55,8 @@ public sealed class FangYuanCharacter : PlaceholderCharacterModel
 
     public override IReadOnlyList<RelicModel> StartingRelics =>
     [
-        ModelDb.Relic<KongQiao1>()
+        ModelDb.Relic<KongQiao1>(),
+        ModelDb.Relic<BenMingGuStarterRelic>()
     ];
 
     public override List<string> GetArchitectAttackVfx() =>

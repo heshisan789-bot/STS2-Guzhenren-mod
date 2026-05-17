@@ -34,7 +34,7 @@ public sealed class SanShiSanTianGuang : AbstractShaZhaoCard
         ArgumentNullException.ThrowIfNull(CombatState, nameof(CombatState));
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).TargetingAllOpponents(CombatState)
-            .WithHitFx("vfx/vfx_heavy_slash")
+            .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
 
         var amount = ShanYaoPower.TotalGainedThisCombat;

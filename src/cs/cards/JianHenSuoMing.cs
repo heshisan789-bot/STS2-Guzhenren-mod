@@ -26,7 +26,7 @@ public sealed class JianHenSuoMing : AbstractShaZhaoCard
         for (var i = 0; i < hits; i++)
         {
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
-                .WithHitFx("vfx/vfx_heavy_slash")
+                .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
         }
 

@@ -4,6 +4,8 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rooms;
@@ -27,6 +29,13 @@ public abstract class AbstractKongQiaoRelic : CustomRelicModel
     public override RelicRarity Rarity => Rank == 1 ? RelicRarity.Starter : RelicRarity.Event;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(RemainingXpKey, 0m)];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        new HoverTip(
+            new LocString("relics", "GUZHENREN-KONG_QIAO_CULTIVATION.title"),
+            new LocString("relics", "GUZHENREN-KONG_QIAO_CULTIVATION.description"))
+    ];
 
     [SavedProperty]
     public int Xp
@@ -147,7 +156,8 @@ public abstract class AbstractKongQiaoRelic : CustomRelicModel
             7 => Owner.Creature.CombatState.CreateCard<HongZaoXianYuan>(Owner),
             8 => Owner.Creature.CombatState.CreateCard<BaiLiXianYuan>(Owner),
             9 => Owner.Creature.CombatState.CreateCard<HuangXingXianYuan>(Owner),
-            _ => Owner.Creature.CombatState.CreateCard<BaiLiXianYuan>(Owner)
+            _ => throw new InvalidOperationException(
+                $"{nameof(AbstractKongQiaoRelic)}.{nameof(CreateImmortalEssenceCard)}: Rank must be 6–9, got {Rank}.")
         };
     }
 

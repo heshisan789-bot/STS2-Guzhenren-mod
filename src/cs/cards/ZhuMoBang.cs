@@ -1,4 +1,5 @@
 using BaseLib.Utils;
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -56,14 +57,18 @@ public sealed class ZhuMoBang : AbstractXianGuWuCard
             choices.Add(CombatState.CreateCard<OptionHuiFuZhuMoBang>(Owner));
         }
 
-        var selected = await CardSelectCmd.FromChooseACardScreen(choiceContext, choices, Owner, canSkip: false);
+        var selected = (await CardSelectCmd.FromSimpleGrid(
+            choiceContext,
+            choices,
+            Owner,
+            new CardSelectorPrefs(SelectionScreenPrompt, 1))).FirstOrDefault();
         switch (selected)
         {
             case OptionZhenChaZhuMoBang:
                 await ApplyZhenCha(CombatState);
                 break;
             case OptionFangHuZhuMoBang:
-                await ApplyFangHu();
+                await ApplyFangHu(cardPlay);
                 break;
             case OptionGongFaZhuMoBang:
                 await ApplyGongFa(choiceContext, CombatState);
@@ -97,9 +102,9 @@ public sealed class ZhuMoBang : AbstractXianGuWuCard
         }
     }
 
-    private async Task ApplyFangHu()
+    private async Task ApplyFangHu(CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, FangHuBlock, ValueProp.Unpowered, null);
+        await CreatureCmd.GainBlock(Owner.Creature, FangHuBlock, ValueProp.Move, cardPlay);
         if (Owner.Creature.GetPower<XueDianXingBanPower>() == null)
         {
             await PowerCmd.Apply<XueDianXingBanPower>(Owner.Creature, -1m, Owner.Creature, this);
@@ -143,6 +148,9 @@ public sealed class ZhuMoBang : AbstractXianGuWuCard
 [Pool(typeof(GuZhenRenCardPool))]
 public sealed class OptionZhenChaZhuMoBang : AbstractGuZhenRenCard
 {
+    public override string PortraitPath => GuZhenRenArtPaths.GetCardPortrait(nameof(ZhuMoBang));
+    public override string BetaPortraitPath => GuZhenRenArtPaths.GetCardBetaPortrait(nameof(ZhuMoBang));
+
     public OptionZhenChaZhuMoBang() : base(-2, CardType.Skill, CardRarity.Token, TargetType.None)
     {
         SetRank(0);
@@ -155,6 +163,8 @@ public sealed class OptionZhenChaZhuMoBang : AbstractGuZhenRenCard
 public sealed class OptionFangHuZhuMoBang : AbstractGuZhenRenCard
 {
     public override bool GainsBlock => true;
+    public override string PortraitPath => GuZhenRenArtPaths.GetCardPortrait(nameof(ZhuMoBang));
+    public override string BetaPortraitPath => GuZhenRenArtPaths.GetCardBetaPortrait(nameof(ZhuMoBang));
 
     public OptionFangHuZhuMoBang() : base(-2, CardType.Skill, CardRarity.Token, TargetType.Self)
     {
@@ -167,6 +177,9 @@ public sealed class OptionFangHuZhuMoBang : AbstractGuZhenRenCard
 [Pool(typeof(GuZhenRenCardPool))]
 public sealed class OptionGongFaZhuMoBang : AbstractGuZhenRenCard
 {
+    public override string PortraitPath => GuZhenRenArtPaths.GetCardPortrait(nameof(ZhuMoBang));
+    public override string BetaPortraitPath => GuZhenRenArtPaths.GetCardBetaPortrait(nameof(ZhuMoBang));
+
     public OptionGongFaZhuMoBang() : base(-2, CardType.Skill, CardRarity.Token, TargetType.AllEnemies)
     {
         SetRank(0);
@@ -178,6 +191,9 @@ public sealed class OptionGongFaZhuMoBang : AbstractGuZhenRenCard
 [Pool(typeof(GuZhenRenCardPool))]
 public sealed class OptionHuiFuZhuMoBang : AbstractGuZhenRenCard
 {
+    public override string PortraitPath => GuZhenRenArtPaths.GetCardPortrait(nameof(ZhuMoBang));
+    public override string BetaPortraitPath => GuZhenRenArtPaths.GetCardBetaPortrait(nameof(ZhuMoBang));
+
     public OptionHuiFuZhuMoBang() : base(-2, CardType.Skill, CardRarity.Token, TargetType.None)
     {
         SetRank(0);

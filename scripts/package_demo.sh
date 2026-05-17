@@ -37,7 +37,7 @@ PCK_PATH="$OUTPUT_DIR/$MOD_ID.pck"
 mkdir -p "$OUTPUT_DIR"
 
 echo "==> Building $MOD_ID.dll ($CONFIGURATION)"
-dotnet build "$ROOT_DIR/Guzhenren.sln" -c "$CONFIGURATION"
+dotnet build "$ROOT_DIR/Guzhenren.csproj" -c "$CONFIGURATION"
 
 if [[ ! -f "$DLL_PATH" ]]; then
   echo "Expected DLL not found: $DLL_PATH" >&2

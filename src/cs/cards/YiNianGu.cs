@@ -34,7 +34,7 @@ public sealed class YiNianGu : AbstractGuZhenRenCard
         {
             var maxSelect = Math.Min(DynamicVars.Cards.IntValue, discardPile.Cards.Count);
             IEnumerable<CardModel> selected = maxSelect >= discardPile.Cards.Count
-                ? discardPile.Cards
+                ? discardPile.Cards.ToList()
                 : new List<CardModel>(await CardSelectCmd.FromSimpleGrid(choiceContext, discardPile.Cards, Owner, new CardSelectorPrefs(SelectionScreenPrompt, maxSelect)));
 
             foreach (var card in selected)

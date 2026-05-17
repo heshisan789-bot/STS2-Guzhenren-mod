@@ -1,6 +1,8 @@
 using BaseLib.Abstracts;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -49,11 +51,19 @@ public sealed class NianPower : AbstractGuZhenRenPower
         {
             ArgumentNullException.ThrowIfNull(Owner.Player, nameof(Owner.Player));
 
+            CombatState? combatState = Owner.CombatState;
+            if (combatState == null)
+            {
+                return;
+            }
+
+            var choiceContext = new HookPlayerChoiceContext(this, Owner.Player.NetId, combatState, GameActionType.Combat);
+
             while (Amount >= 3)
             {
                 Flash();
                 await PowerCmd.SetAmount<NianPower>(Owner, Amount - 3, applier, cardSource);
-                await CardPileCmd.Draw(new BlockingPlayerChoiceContext(), 1, Owner.Player);
+                await CardPileCmd.Draw(choiceContext, 1, Owner.Player);
                 await PowerCmd.Apply<YiPower>(Owner, 1, applier, cardSource);
                 await ZhuanYiPower.TriggerConversion(Owner, applier, cardSource);
             }

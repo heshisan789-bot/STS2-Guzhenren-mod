@@ -12,7 +12,7 @@ namespace Guzhenren.Scripts;
 [GuZhenRenDaoPool(GuZhenRenDao.YanDao)]
 public sealed class HuoGu : AbstractBenMingGuCard
 {
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

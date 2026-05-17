@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Texture2D" path="res://guzhenren/images/character/FangYuan/TisIcon.png" id="1_icon"]
+[ext_resource type="Texture2D" path="res://guzhenren/images/character/FangYuan/Button.png" id="1_icon"]
 
 [node name="FangYuanIcon" type="TextureRect"]
 offset_right = 128.0

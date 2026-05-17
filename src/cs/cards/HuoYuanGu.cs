@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 
 namespace Guzhenren.Scripts;
 
@@ -26,12 +27,16 @@ public sealed class HuoYuanGu : AbstractGuZhenRenCard
     {
         ArgumentNullException.ThrowIfNull(CombatState, nameof(CombatState));
 
-        var selected = (await CardSelectCmd.FromHand(
-            prefs: new CardSelectorPrefs(SelectionScreenPrompt, 1),
-            context: choiceContext,
-            player: Owner,
-            filter: static _ => true,
-            source: this)).FirstOrDefault();
+        CardModel? selected = null;
+        if (PileType.Hand.GetPile(Owner).Cards.Count > 0)
+        {
+            selected = (await CardSelectCmd.FromHand(
+                prefs: new CardSelectorPrefs(SelectionScreenPrompt, 1),
+                context: choiceContext,
+                player: Owner,
+                filter: static _ => true,
+                source: this)).FirstOrDefault();
+        }
 
         if (selected != null)
         {

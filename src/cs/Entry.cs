@@ -3,9 +3,13 @@ using Godot.Bridge;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
+using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves.Managers;
+using System;
+using System.Runtime.ExceptionServices;
 
 namespace Guzhenren.Scripts;
 
@@ -16,17 +20,37 @@ namespace Guzhenren.Scripts;
 [ModInitializer("Init")]
 public static class Entry
 {
-    private const string BuildStamp = "2026-05-15.2";
+    private const string BuildStamp = "2026-05-17.1";
+    private static bool _loggedIndexOutOfRange;
 
     public static void Init()
     {
         var harmony = new Harmony("sts2.guzhenren");
         harmony.PatchAll();
 
+        AppDomain.CurrentDomain.FirstChanceException += OnFirstChanceException;
+
         ScriptManagerBridge.LookupScriptsInAssembly(typeof(Entry).Assembly);
         CombatManager.Instance.CombatSetUp += _ => BattleStateManager.PublishBattleStart();
         CombatManager.Instance.CombatEnded += _ => BattleStateManager.PublishPostBattle();
+        RunManager.Instance.RunStarted += _ => { TaskHelper.RunSafely(BenMingGuEventSelectionCoordinator.TryInjectCurrentRoom()); };
+        RunManager.Instance.RoomEntered += () =>
+        {
+            TaskHelper.RunSafely(BenMingGuEventSelectionCoordinator.TryInjectCurrentRoom());
+        };
+
         Log.Info($"GuZhenRen initialized (build={BuildStamp}).");
+    }
+
+    private static void OnFirstChanceException(object? sender, FirstChanceExceptionEventArgs e)
+    {
+        if (_loggedIndexOutOfRange || e.Exception is not ArgumentOutOfRangeException)
+        {
+            return;
+        }
+
+        _loggedIndexOutOfRange = true;
+        Log.Error($"[GuZhenRen][FirstChance] {e.Exception}");
     }
 
     /// <summary>

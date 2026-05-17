@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://guzhenren/images/character/FangYuan/Button.png" id="1_icon"]
+
+[node name="guzhenren_fang_yuan_character_icon" type="TextureRect"]
+offset_right = 128.0
+offset_bottom = 128.0
+texture = ExtResource("1_icon")
+expand_mode = 1
+stretch_mode = 5

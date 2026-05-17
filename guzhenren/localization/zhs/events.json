@@ -1,0 +1,7 @@
+{
+  "GUZHENREN-BEN_MING_GU_SELECTION.description": "从3只随机[gold]本命蛊[/gold]中选择1只加入牌组。选择后，将继续当前开局事件。",
+  "GUZHENREN-BEN_MING_GU_SELECTION.optionDescription": "选择这只[gold]本命蛊[/gold]并加入牌组。",
+  "GUZHENREN-BEN_MING_GU_SELECTION.confirmationDescription": "已将所选[gold]本命蛊[/gold]加入牌组。点击继续，返回当前开局事件。",
+  "GUZHENREN-BEN_MING_GU_SELECTION.continueTitle": "继续",
+  "GUZHENREN-BEN_MING_GU_SELECTION.continueDescription": "返回当前开局事件。"
+}

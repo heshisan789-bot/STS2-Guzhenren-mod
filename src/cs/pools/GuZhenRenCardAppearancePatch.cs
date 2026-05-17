@@ -1,5 +1,4 @@
 using System.Reflection;
-using BaseLib.Abstracts;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Cards;
@@ -19,15 +18,20 @@ internal static class GuZhenRenCardAppearancePatch
     [HarmonyPostfix]
     private static void ReloadPostfix(NCard __instance)
     {
-        if (__instance.Model is not CustomCardModel customCard ||
-            customCard.Pool is not GuZhenRenCardPool pool)
+        if (!GodotObject.IsInstanceValid(__instance) || __instance.Model is not AbstractGuZhenRenCard)
         {
             return;
         }
 
         if (EnergyIconField?.GetValue(__instance) is TextureRect energyIconRect)
         {
-            var energyOrbPath = pool.TextEnergyIconPath ?? pool.BigEnergyIconPath;
+            if (!GodotObject.IsInstanceValid(energyIconRect))
+            {
+                return;
+            }
+
+            var energyOrbPath = GuZhenRenArtPaths.GetCardEnergyOrb(useBigOrb: false) ??
+                                GuZhenRenArtPaths.GetCardEnergyOrb(useBigOrb: true);
             if (!string.IsNullOrEmpty(energyOrbPath))
             {
                 var energyOrb = ResourceLoader.Load<Texture2D>(energyOrbPath);

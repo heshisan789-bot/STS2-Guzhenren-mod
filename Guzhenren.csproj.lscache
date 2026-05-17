@@ -60,6 +60,8 @@ TemporaryDependencyNodeTargetIdentifier=net9.0
 src/cs/cards/
  AngryBird.cs
  AnQiSha.cs
+ BaiXiangXuYing.cs
+ BaiXiangYuanLiGu.cs
  base/
   AbstractBenMingGuCard.cs
   AbstractGuZhenRenCard.cs
@@ -67,12 +69,22 @@ src/cs/cards/
   AbstractXianGuWuCard.cs
   AbstractXuYingCard.cs
  BaShan.cs
+ BenMingGuTitlePatch.cs
+ ChiMaJunLiGu.cs
  DaoChiXueFu.cs
  DieYingGu.cs
  DingLi.cs
  DuoChongJianYingGu.cs
  FeiJian.cs
+ FeiLiGu.cs
+ FeiXiongXuYing.cs
+ FeiXiongZhiLiGu.cs
  GuangGu.cs
+ GuiLiXuYing.cs
+ GuZhenRenCardRankPatch.cs
+ HeiMangChanLiGu.cs
+ HeiMangXuYing.cs
+ HengChongZhiZhuangGu.cs
  HuiJian.cs
  HuoGu.cs
  HuoMaoSanZhangGu.cs
@@ -94,13 +106,22 @@ src/cs/cards/
  LengXue.cs
  LiaoYuanHuo.cs
  LiLiangGu.cs
+ LiQiGu.cs
+ LiQiHandLimitPatch.cs
  LongXingHuBuGu.cs
+ MaLiXuYing.cs
  MuJiaGu.cs
+ NiuLiXuYing.cs
+ QingNiuLaoLiGu.cs
+ QuanLiYiFuGu.cs
  QunLiGu.cs
+ RenGu.cs
  RongYanZhaLieGu.cs
  SanShiSanTianGuang.cs
+ ShaGu.cs
  ShanJianGu.cs
  ShaYiGu.cs
+ ShiGuiFuLiGu.cs
  ShiZhen.cs
  TaiDuGu.cs
  TaiGuangGu.cs
@@ -110,6 +131,8 @@ src/cs/cards/
  TouXiGu.cs
  WanLan.cs
  WanWoDaShouYin.cs
+ WoLi.cs
+ WoLiXuYing.cs
  WuJinXuanGuangQi.cs
  WuZuNiao.cs
  XianYuan.cs
@@ -141,12 +164,24 @@ src/cs/cards/
  ZhuanYiGu.cs
  ZhuiNian.cs
  ZhuMoBang.cs
+ ZiLiGengShengGu.cs
  ZiYiGu.cs
 src/cs/character/
+ BenMingGuEventSelectionCoordinator.cs
  FangYuanCharacter.cs
  FangYuanMerchantCharacter.cs
 src/cs/
  Entry.cs
+ patches/
+  EnchantmentPreviewDynamicVarPatch.cs
+  FangYuanEnergyIconPrefixPatch.cs
+  FangYuanTopBarIconPatch.cs
+  FangYuanTopBarPortraitOverridePatch.cs
+  GuZhenRenEnergyIconHelperPatch.cs
+  GuZhenRenEnergyIconsFormatterPatch.cs
+  GuZhenRenPowerPackedIconPatch.cs
+  RunEndDebugPatch.cs
+  XuYingHandLimitPatch.cs
  pools/
   GuZhenRenCardAppearancePatch.cs
   GuZhenRenCardCatalog.cs
@@ -158,10 +193,14 @@ src/cs/
   GuZhenRenPotionPool.cs
   GuZhenRenRelicPool.cs
   GuZhenRenRunCardPoolConfig.cs
+  GuZhenRenSpecialCardPool.cs
+  GuZhenRenTokenCardExclusionPatch.cs
  potions/ShengJiYe.cs
  powers/
   base/AbstractGuZhenRenPower.cs
+  FeiLiPower.cs
   FenShaoPower.cs
+  GuZhenRenPowerTooltipPatch.cs
   HuoMaoSanZhangPower.cs
   JianDunPower.cs
   JianFengPower.cs
@@ -170,8 +209,10 @@ src/cs/
   JianQiPower.cs
   LengXuePower.cs
   LiLiangGuStrengthDownPower.cs
+  LiQiPower.cs
   NianPower.cs
   QingPower.cs
+  QuanLiYiFuPower.cs
   RiGuangPower.cs
   ShanYaoPower.cs
   TaiGuRongYaoZhiGuangPower.cs
@@ -190,7 +231,9 @@ src/cs/
   ZhiXuePower.cs
   ZhiZhangPower.cs
   ZhuanYiPower.cs
- relics/KongQiao1.cs
+ relics/
+  BenMingGuStarterRelic.cs
+  KongQiao1.cs
  util/
   BattleStateManager.cs
   GuZhenRenArtPaths.cs

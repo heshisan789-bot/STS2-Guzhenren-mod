@@ -13,6 +13,8 @@ public sealed class XinXue : AbstractBenMingGuCard
 {
     private const string HealAmountKey = "HealAmount";
 
+    protected override int MaxRank => 8;
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar(HealAmountKey, 2m),

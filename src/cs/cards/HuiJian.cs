@@ -36,7 +36,7 @@ public sealed class HuiJian : AbstractGuZhenRenCard
         ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
-            .WithHitFx("vfx/vfx_heavy_slash")
+            .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
 
         await PowerCmd.Apply<NianPower>(Owner.Creature, DynamicVars["NianPower"].BaseValue, Owner.Creature, this);
