@@ -17,7 +17,6 @@
 ## 特性（阶段性）
 
 - 单一角色卡池 `GuZhenRenCardPool`，内部按“道”拆分逻辑子池（便于后续局内筛选/屏蔽某些道）
-- 资源本地化：卡图/遗物/Power 图标统一放在 `guzhenren/images/`，不依赖 `other-lib` 的图片路径
 
 ## 项目结构
 
