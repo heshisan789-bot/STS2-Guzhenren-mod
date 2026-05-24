@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Logging;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves.Managers;
@@ -31,9 +32,15 @@ public static class Entry
         AppDomain.CurrentDomain.FirstChanceException += OnFirstChanceException;
 
         ScriptManagerBridge.LookupScriptsInAssembly(typeof(Entry).Assembly);
+        ModHelper.SubscribeForRunStateHooks("guzhenren_shazhao_synthesis", _ =>
+            new[] { ModelDb.GetById<GuZhenRenShaZhaoSynthesisSystem>(ModelDb.GetId(typeof(GuZhenRenShaZhaoSynthesisSystem))) });
         CombatManager.Instance.CombatSetUp += _ => BattleStateManager.PublishBattleStart();
         CombatManager.Instance.CombatEnded += _ => BattleStateManager.PublishPostBattle();
-        RunManager.Instance.RunStarted += _ => { TaskHelper.RunSafely(BenMingGuEventSelectionCoordinator.TryInjectCurrentRoom()); };
+        RunManager.Instance.RunStarted += state =>
+        {
+            TaskHelper.RunSafely(BenMingGuEventSelectionCoordinator.TryInjectCurrentRoom());
+            TaskHelper.RunSafely(GuFangStartingRecipeHelper.TryGrantStartingRecipe(state));
+        };
         RunManager.Instance.RoomEntered += () =>
         {
             TaskHelper.RunSafely(BenMingGuEventSelectionCoordinator.TryInjectCurrentRoom());
