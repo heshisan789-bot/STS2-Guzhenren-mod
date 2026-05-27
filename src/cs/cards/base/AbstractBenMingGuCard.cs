@@ -15,4 +15,6 @@ public abstract class AbstractBenMingGuCard : AbstractGuZhenRenCard
     }
 
     public override bool IsBenMingGu => true;
+
+    public override GuZhenRenBannedCardSources BannedSources => GuZhenRenBannedCardSources.All;
 }

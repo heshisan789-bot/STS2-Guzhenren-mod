@@ -27,6 +27,17 @@ public abstract class AbstractGuFangRecipeRelic : CustomRelicModel
         }
     }
 
+    private static string ToRequirementText(string ingredientDescription)
+    {
+        const string prefix = "选择材料：";
+        if (ingredientDescription.StartsWith(prefix, StringComparison.Ordinal))
+        {
+            return ingredientDescription[prefix.Length..].Trim();
+        }
+
+        return ingredientDescription.Trim();
+    }
+
     public override RelicRarity Rarity => RelicRarity.Common;
 
     public override bool IsAllowedInShops => true;
@@ -103,13 +114,31 @@ public abstract class AbstractGuFangRecipeRelic : CustomRelicModel
                 var ingredientNames = new List<string>(IngredientCount);
                 for (var i = 0; i < IngredientCount; i++)
                 {
-                    ingredientNames.Add(SafeFormat(GetIngredientDescription(i)));
+                    ingredientNames.Add(ToRequirementText(SafeFormat(GetIngredientDescription(i))));
                 }
 
-                var recipeTip = new HoverTip(Title, "需要蛊虫：" + string.Join("、", ingredientNames));
+                var shazhaoName = RewardPreviewModel.Title;
+                var titleLoc = new LocString("rest_site_ui", "GUZHENREN-RECIPE_SHAZHAO_TITLE");
+                titleLoc.Add("name", shazhaoName);
+
+                var recipeTip = new HoverTip(titleLoc, "需要蛊虫：" + string.Join("、", ingredientNames));
                 recipeTip.SetCanonicalModel(CanonicalInstance);
 
-                return new[] { (IHoverTip)recipeTip };
+                CardModel preview;
+                try
+                {
+                    preview = Owner != null ? CreateRewardCard(Owner) : RewardPreviewModel;
+                }
+                catch
+                {
+                    preview = RewardPreviewModel;
+                }
+
+                return new IHoverTip[]
+                {
+                    recipeTip,
+                    new CardHoverTip(preview)
+                };
             }
             catch
             {

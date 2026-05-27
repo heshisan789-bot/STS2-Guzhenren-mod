@@ -24,7 +24,7 @@ public sealed class HeiMangChanLiGu : AbstractGuZhenRenCard
     [
         HoverTipFactory.FromPower<WeakPower>(),
         HoverTipFactory.FromPower<ConstrictPower>(),
-        HoverTipFactory.FromCard<HeiMangXuYing>()
+        HoverTipFactory.FromCard<HeiMangXuYing>(IsUpgradedOrUpgradePreview)
     ];
 
     public HeiMangChanLiGu() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies)

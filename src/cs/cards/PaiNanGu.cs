@@ -30,6 +30,11 @@ public sealed class PaiNanGu : AbstractGuZhenRenCard
 
     protected override void OnUpgrade()
     {
+        if (!IsCanonical)
+        {
+            AddKeyword(CardKeyword.Innate);
+        }
+
         UpgradeRank(1);
     }
 }

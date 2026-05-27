@@ -15,7 +15,7 @@ public sealed class ChiMaJunLiGu : AbstractGuZhenRenCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<MaLiXuYing>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<MaLiXuYing>(IsUpgradedOrUpgradePreview)];
 
     public ChiMaJunLiGu() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
@@ -25,7 +25,10 @@ public sealed class ChiMaJunLiGu : AbstractGuZhenRenCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(CombatState, nameof(CombatState));
+        if (CombatState == null)
+        {
+            return;
+        }
 
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
 

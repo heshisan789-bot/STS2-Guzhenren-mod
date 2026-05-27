@@ -19,7 +19,9 @@ public sealed class YuHuo : AbstractGuZhenRenCard
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new PowerVar<FenShaoPower>(1m),
-        new CalculatedVar(CalculatedTimesKey).WithMultiplier((CardModel card, MegaCrit.Sts2.Core.Entities.Creatures.Creature? _) =>
+        new CalculationBaseVar(0m),
+        new CalculationExtraVar(1m),
+        new CalculatedVar(CalculatedTimesKey).WithMultiplier(static (CardModel card, MegaCrit.Sts2.Core.Entities.Creatures.Creature? _) =>
         {
             var yuHuo = (YuHuo)card;
             return yuHuo.GetExhaustedThisTurnCount();

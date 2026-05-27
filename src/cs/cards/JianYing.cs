@@ -13,6 +13,8 @@ namespace Guzhenren.Scripts;
 [GuZhenRenDaoPool(GuZhenRenDao.JianDao)]
 public sealed class JianYing : AbstractGuZhenRenCard
 {
+    public override GuZhenRenBannedCardSources BannedSources => GuZhenRenBannedCardSources.All;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal, CardKeyword.Unplayable];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move)];

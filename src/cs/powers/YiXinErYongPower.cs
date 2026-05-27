@@ -2,21 +2,46 @@ using BaseLib.Abstracts;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 
 namespace Guzhenren.Scripts;
 
 public sealed class YiXinErYongPower : AbstractGuZhenRenPower
 {
+    private sealed class Data
+    {
+        public bool IgnoreNextTrigger { get; set; }
+    }
+
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override bool AllowNegative => false;
+
+    protected override object InitInternalData()
+    {
+        return new Data();
+    }
+
+    public override Task AfterApplied(Creature? applier, CardModel? cardSource)
+    {
+        GetInternalData<Data>().IgnoreNextTrigger = true;
+        return Task.CompletedTask;
+    }
 
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
         if (cardPlay.Card.Owner.Creature != Owner || cardPlay.IsAutoPlay || Amount <= 0)
         {
+            return;
+        }
+
+        var data = GetInternalData<Data>();
+        if (data.IgnoreNextTrigger)
+        {
+            data.IgnoreNextTrigger = false;
             return;
         }
 

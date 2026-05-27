@@ -24,7 +24,7 @@ public sealed class FeiXiongZhiLiGu : AbstractGuZhenRenCard
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<VulnerablePower>(),
-        HoverTipFactory.FromCard<FeiXiongXuYing>()
+        HoverTipFactory.FromCard<FeiXiongXuYing>(IsUpgradedOrUpgradePreview)
     ];
 
     public FeiXiongZhiLiGu() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)

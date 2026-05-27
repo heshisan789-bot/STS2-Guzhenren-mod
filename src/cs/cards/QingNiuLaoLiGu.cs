@@ -16,7 +16,7 @@ public sealed class QingNiuLaoLiGu : AbstractGuZhenRenCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Move)];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<NiuLiXuYing>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<NiuLiXuYing>(IsUpgradedOrUpgradePreview)];
 
     public QingNiuLaoLiGu() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {

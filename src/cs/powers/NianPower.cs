@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Guzhenren.Scripts;
 
@@ -27,6 +28,10 @@ public sealed class NianPower : AbstractGuZhenRenPower
 
     public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
+        if (Amount > 0)
+        {
+            await TriggerXingLuoQiBu(Amount, cardSource);
+        }
         await ResolveThresholds(applier ?? Owner, cardSource);
     }
 
@@ -34,8 +39,25 @@ public sealed class NianPower : AbstractGuZhenRenPower
     {
         if (power == this && amount > 0)
         {
+            await TriggerXingLuoQiBu(amount, cardSource);
             await ResolveThresholds(applier ?? Owner, cardSource);
         }
+    }
+
+    private async Task TriggerXingLuoQiBu(decimal nianGained, CardModel? cardSource)
+    {
+        if (nianGained <= 0)
+        {
+            return;
+        }
+
+        var xingLuoQiBu = Owner.GetPower<XingLuoQiBuPower>();
+        if (xingLuoQiBu == null || xingLuoQiBu.Amount <= 0)
+        {
+            return;
+        }
+
+        await CreatureCmd.GainBlock(Owner, xingLuoQiBu.Amount * nianGained, ValueProp.Unpowered, null);
     }
 
     private async Task ResolveThresholds(Creature applier, CardModel? cardSource)

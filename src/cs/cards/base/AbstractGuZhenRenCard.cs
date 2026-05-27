@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using System.Runtime.CompilerServices;
 
 namespace Guzhenren.Scripts;
 
@@ -26,6 +27,9 @@ public abstract class AbstractGuZhenRenCard : CustomCardModel
     public virtual bool IsShaZhao => false;
     public virtual bool IsXianGu => false;
     public virtual bool IsXuYing => false;
+    public virtual GuZhenRenBannedCardSources BannedSources => GuZhenRenBannedCardSources.None;
+
+    protected bool IsUpgradedOrUpgradePreview => IsUpgraded || UpgradePreviewType.IsPreview();
 
     public override string PortraitPath => GuZhenRenArtPaths.GetCardPortrait(GetType().Name);
     public override string BetaPortraitPath => GuZhenRenArtPaths.GetCardBetaPortrait(GetType().Name);
@@ -56,5 +60,15 @@ public abstract class AbstractGuZhenRenCard : CustomCardModel
 
     protected virtual void OnRankChanged()
     {
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return ReferenceEquals(this, obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return RuntimeHelpers.GetHashCode(this);
     }
 }

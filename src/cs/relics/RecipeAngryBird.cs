@@ -39,7 +39,7 @@ public sealed class RecipeAngryBird : AbstractGuFangRecipeRelic
 
     public override LocString GetIngredientDescription(int index)
     {
-        return new LocString("guzhenren_ui", $"GUZHENREN-RECIPE_ANGRY_BIRD.ingredient{index}");
+        return new LocString("rest_site_ui", $"GUZHENREN-RECIPE_ANGRY_BIRD.ingredient{index}");
     }
 
     public override CardModel CreateRewardCard(Player owner)

@@ -38,7 +38,7 @@ public sealed class RecipeAnQiSha : AbstractGuFangRecipeRelic
 
     public override LocString GetIngredientDescription(int index)
     {
-        return new LocString("guzhenren_ui", $"GUZHENREN-RECIPE_AN_QI_SHA.ingredient{index}");
+        return new LocString("rest_site_ui", $"GUZHENREN-RECIPE_AN_QI_SHA.ingredient{index}");
     }
 
     public override CardModel CreateRewardCard(Player owner)

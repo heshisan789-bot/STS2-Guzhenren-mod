@@ -39,14 +39,8 @@ public sealed class WoLiXuYing : AbstractXuYingCard
             generated.FinalizeUpgradeInternal();
         }
 
-        var added = await CardPileCmd.AddGeneratedCardToCombat(generated, PileType.Hand, addedByPlayer: false);
-        if (!added.success || added.cardAdded.Pile?.Type != PileType.Hand)
-        {
-            _cachedAttack = RollRandomAttackFromDeck();
-            return;
-        }
         var dupe = generated.CreateDupe();
-        await CardPileCmd.RemoveFromCombat(generated, skipVisuals: true);
+        CombatState.RemoveCard(generated);
 
         var dupeAdded = await CardPileCmd.AddGeneratedCardToCombat(dupe, PileType.Hand, addedByPlayer: false);
         if (!dupeAdded.success || dupeAdded.cardAdded.Pile?.Type != PileType.Hand)
@@ -54,8 +48,9 @@ public sealed class WoLiXuYing : AbstractXuYingCard
             _cachedAttack = RollRandomAttackFromDeck();
             return;
         }
-        dupe.SetToFreeThisTurn();
-        await CardCmd.AutoPlay(choiceContext, dupe, target);
+        dupeAdded.cardAdded.SetToFreeThisTurn();
+        dupeAdded.cardAdded.ExhaustOnNextPlay = true;
+        await CardCmd.AutoPlay(choiceContext, dupeAdded.cardAdded, target);
 
         _cachedAttack = RollRandomAttackFromDeck();
     }
@@ -71,6 +66,7 @@ public sealed class WoLiXuYing : AbstractXuYingCard
             .Where(card => card.Type == CardType.Attack)
             .Where(card => card is not AbstractXuYingCard)
             .Where(card => !card.Keywords.Contains(CardKeyword.Exhaust))
+            .Where(card => !card.Keywords.Contains(CardKeyword.Unplayable))
             .ToList();
 
         return Owner.RunState.Rng.Shuffle.NextItem(candidates);

@@ -12,6 +12,8 @@ public abstract class AbstractShaZhaoCard : AbstractGuZhenRenCard
 
     public override bool IsShaZhao => true;
 
+    public override GuZhenRenBannedCardSources BannedSources => GuZhenRenBannedCardSources.All;
+
     public override bool CanBeGeneratedInCombat => false;
 
     public override bool CanBeGeneratedByModifiers => false;

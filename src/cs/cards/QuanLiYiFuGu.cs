@@ -27,6 +27,11 @@ public sealed class QuanLiYiFuGu : AbstractGuZhenRenCard
 
     protected override void OnUpgrade()
     {
+        if (!IsCanonical)
+        {
+            AddKeyword(CardKeyword.Retain);
+        }
+
         UpgradeRank(1);
     }
 }

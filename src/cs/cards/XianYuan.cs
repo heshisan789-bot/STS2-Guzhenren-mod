@@ -27,6 +27,8 @@ public abstract class AbstractXianYuanCard : AbstractGuZhenRenCard
         SetRank(0);
     }
 
+    public override GuZhenRenBannedCardSources BannedSources => GuZhenRenBannedCardSources.All;
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);

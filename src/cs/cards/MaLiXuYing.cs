@@ -23,16 +23,23 @@ public sealed class MaLiXuYing : AbstractXuYingCard
     {
         await CardPileCmd.Draw(choiceContext, 1, Owner);
 
-        if (PileType.Hand.GetPile(Owner).Cards.Count == 0)
+        var hand = PileType.Hand.GetPile(Owner);
+        if (hand.Cards.Count == 0)
+        {
+            return;
+        }
+
+        var selectableCount = hand.Cards.Count(c => !ReferenceEquals(c, this));
+        if (selectableCount <= 0)
         {
             return;
         }
 
         var selected = (await CardSelectCmd.FromHand(
-            prefs: new CardSelectorPrefs(SelectionScreenPrompt, 1),
+            prefs: new CardSelectorPrefs(SelectionScreenPrompt, 0, 1),
             context: choiceContext,
             player: Owner,
-            filter: static _ => true,
+            filter: c => !ReferenceEquals(c, this),
             source: this)).ToList();
 
         if (selected.Count > 0)

@@ -71,11 +71,6 @@ public sealed class HuiGu : AbstractGuZhenRenCard
             card.SetToFreeThisTurn();
         }
 
-        if (Owner.Character is not FangYuanCharacter)
-        {
-            var regret = CombatState.CreateCard<Regret>(Owner);
-            await CardPileCmd.AddGeneratedCardToCombat(regret, PileType.Hand, addedByPlayer: true);
-        }
     }
 
     protected override void OnUpgrade()

@@ -18,7 +18,7 @@ public sealed class ShiGuiFuLiGu : AbstractGuZhenRenCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(11m, ValueProp.Move)];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<GuiLiXuYing>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<GuiLiXuYing>(IsUpgradedOrUpgradePreview)];
 
     public ShiGuiFuLiGu() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {

@@ -71,12 +71,21 @@ public sealed class XueShenZi : AbstractGuZhenRenCard
 
     protected override void OnUpgrade()
     {
+        if (!IsCanonical)
+        {
+            RemoveKeyword(CardKeyword.Exhaust);
+        }
+
         UpgradeRank(1);
     }
 
     protected override void AfterDowngraded()
     {
         base.AfterDowngraded();
+        if (!IsCanonical)
+        {
+            AddKeyword(CardKeyword.Exhaust);
+        }
         UpdateDamage();
     }
 

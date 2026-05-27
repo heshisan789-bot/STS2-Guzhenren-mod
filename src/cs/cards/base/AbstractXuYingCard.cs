@@ -27,6 +27,8 @@ public abstract class AbstractXuYingCard : AbstractGuZhenRenCard, IGuZhenRenProb
 
     public override bool IsXuYing => true;
 
+    public override GuZhenRenBannedCardSources BannedSources => GuZhenRenBannedCardSources.All;
+
     public override async Task AfterCardPlayedLate(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (Pile?.Type != PileType.Hand || cardPlay.Card.Owner != Owner)

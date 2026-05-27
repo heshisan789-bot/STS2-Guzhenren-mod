@@ -1,4 +1,5 @@
 using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -19,7 +20,8 @@ public sealed class ZiLiGengShengGu : AbstractGuZhenRenCard
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new CalculationBaseVar(4m),
-        new CalculatedVar(CalculatedHealKey).WithMultiplier(static (card, _) => ((ZiLiGengShengGu)card).CalculateHealAmount())
+        new CalculationExtraVar(1m),
+        new CalculatedVar(CalculatedHealKey).WithMultiplier(static (card, _) => ((ZiLiGengShengGu)card).GetStrengthAmount())
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
@@ -50,7 +52,17 @@ public sealed class ZiLiGengShengGu : AbstractGuZhenRenCard
     private decimal CalculateHealAmount()
     {
         var baseHeal = DynamicVars.CalculationBase.BaseValue;
-        var strength = Owner.Creature.GetPowerAmount<StrengthPower>();
+        var strength = GetStrengthAmount();
         return Math.Max(0m, baseHeal + strength);
+    }
+
+    private int GetStrengthAmount()
+    {
+        if (!CombatManager.Instance.IsInProgress)
+        {
+            return 0;
+        }
+
+        return Owner?.Creature?.GetPowerAmount<StrengthPower>() ?? 0;
     }
 }

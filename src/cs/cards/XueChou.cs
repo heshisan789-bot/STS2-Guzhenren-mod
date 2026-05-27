@@ -30,6 +30,20 @@ public sealed class XueChou : AbstractGuZhenRenCard
 
     protected override void OnUpgrade()
     {
+        if (!IsCanonical)
+        {
+            AddKeyword(CardKeyword.Retain);
+        }
+
         UpgradeRank(1);
+    }
+
+    protected override void AfterDowngraded()
+    {
+        base.AfterDowngraded();
+        if (!IsCanonical)
+        {
+            RemoveKeyword(CardKeyword.Retain);
+        }
     }
 }

@@ -19,7 +19,7 @@ public sealed class WoLi : AbstractGuZhenRenCard
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<OneTwoPunchPower>(),
-        HoverTipFactory.FromCard<WoLiXuYing>()
+        HoverTipFactory.FromCard<WoLiXuYing>(IsUpgradedOrUpgradePreview)
     ];
 
     public WoLi() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)

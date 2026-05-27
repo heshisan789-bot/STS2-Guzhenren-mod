@@ -30,8 +30,8 @@ public sealed class XingNianGu : AbstractGuZhenRenCard
     {
         var drawPile = PileType.Draw.GetPile(Owner);
         var candidates = new List<CardModel>();
-        var startIndex = Math.Max(0, drawPile.Cards.Count - DynamicVars.Cards.IntValue);
-        for (var i = startIndex; i < drawPile.Cards.Count; i++)
+        var count = Math.Min(drawPile.Cards.Count, DynamicVars.Cards.IntValue);
+        for (var i = 0; i < count; i++)
         {
             candidates.Add(drawPile.Cards[i]);
         }

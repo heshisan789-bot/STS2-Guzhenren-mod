@@ -24,7 +24,7 @@ public sealed class BaiXiangYuanLiGu : AbstractGuZhenRenCard
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<StrengthPower>(),
-        HoverTipFactory.FromCard<BaiXiangXuYing>()
+        HoverTipFactory.FromCard<BaiXiangXuYing>(IsUpgradedOrUpgradePreview)
     ];
 
     public BaiXiangYuanLiGu() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)

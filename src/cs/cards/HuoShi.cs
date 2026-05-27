@@ -11,6 +11,8 @@ namespace Guzhenren.Scripts;
 [GuZhenRenDaoPool(GuZhenRenDao.YanDao)]
 public sealed class HuoShi : AbstractGuZhenRenCard
 {
+    public override GuZhenRenBannedCardSources BannedSources => GuZhenRenBannedCardSources.All;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain, CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<FenShaoPower>(2m)];

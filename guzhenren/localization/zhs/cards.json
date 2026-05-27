@@ -55,7 +55,7 @@
   "GUZHENREN-JIAN_QI_GU.title": "剑气蛊",
   "GUZHENREN-JIAN_QI_GU.description": "造成{Damage:diff}点伤害。\n施加{JianQiPower:diff}层[gold]剑气[/gold]。",
   "GUZHENREN-JIAN_DUN.title": "剑遁",
-  "GUZHENREN-JIAN_DUN.description": "造成{Damage:diff}点伤害。\n获得{JianDunPower:diff}层[gold]剑盾[/gold]。",
+  "GUZHENREN-JIAN_DUN.description": "造成{Damage:diff}点伤害。\n获得{JianDunPower:diff}层[gold]剑遁[/gold]。",
   "GUZHENREN-AN_QI_SHA.title": "暗岐杀",
   "GUZHENREN-AN_QI_SHA.description": "造成{Damage:diff}点伤害。\n若这是你本回合打出的第一张攻击牌，且目标本回合不意图攻击，则改为造成10倍伤害。",
   "GUZHENREN-JIAN_YING.title": "剑影",

@@ -118,7 +118,7 @@ public sealed class ZhuMoBang : AbstractXianGuWuCard
             var hits = enemy.GetPowerAmount<XueYuanMarkPower>();
             for (var i = 0; i < hits; i++)
             {
-                await CreatureCmd.Damage(choiceContext, enemy, GongFaDamage, ValueProp.Unpowered, Owner.Creature, this);
+                await CreatureCmd.Damage(choiceContext, enemy, GongFaDamage, ValueProp.Move, Owner.Creature, this);
             }
         }
     }
@@ -148,6 +148,7 @@ public sealed class ZhuMoBang : AbstractXianGuWuCard
 [Pool(typeof(GuZhenRenCardPool))]
 public sealed class OptionZhenChaZhuMoBang : AbstractGuZhenRenCard
 {
+    public override GuZhenRenBannedCardSources BannedSources => GuZhenRenBannedCardSources.All;
     public override string PortraitPath => GuZhenRenArtPaths.GetCardPortrait(nameof(ZhuMoBang));
     public override string BetaPortraitPath => GuZhenRenArtPaths.GetCardBetaPortrait(nameof(ZhuMoBang));
 
@@ -163,6 +164,7 @@ public sealed class OptionZhenChaZhuMoBang : AbstractGuZhenRenCard
 public sealed class OptionFangHuZhuMoBang : AbstractGuZhenRenCard
 {
     public override bool GainsBlock => true;
+    public override GuZhenRenBannedCardSources BannedSources => GuZhenRenBannedCardSources.All;
     public override string PortraitPath => GuZhenRenArtPaths.GetCardPortrait(nameof(ZhuMoBang));
     public override string BetaPortraitPath => GuZhenRenArtPaths.GetCardBetaPortrait(nameof(ZhuMoBang));
 
@@ -177,6 +179,7 @@ public sealed class OptionFangHuZhuMoBang : AbstractGuZhenRenCard
 [Pool(typeof(GuZhenRenCardPool))]
 public sealed class OptionGongFaZhuMoBang : AbstractGuZhenRenCard
 {
+    public override GuZhenRenBannedCardSources BannedSources => GuZhenRenBannedCardSources.All;
     public override string PortraitPath => GuZhenRenArtPaths.GetCardPortrait(nameof(ZhuMoBang));
     public override string BetaPortraitPath => GuZhenRenArtPaths.GetCardBetaPortrait(nameof(ZhuMoBang));
 
@@ -191,6 +194,7 @@ public sealed class OptionGongFaZhuMoBang : AbstractGuZhenRenCard
 [Pool(typeof(GuZhenRenCardPool))]
 public sealed class OptionHuiFuZhuMoBang : AbstractGuZhenRenCard
 {
+    public override GuZhenRenBannedCardSources BannedSources => GuZhenRenBannedCardSources.All;
     public override string PortraitPath => GuZhenRenArtPaths.GetCardPortrait(nameof(ZhuMoBang));
     public override string BetaPortraitPath => GuZhenRenArtPaths.GetCardBetaPortrait(nameof(ZhuMoBang));
 

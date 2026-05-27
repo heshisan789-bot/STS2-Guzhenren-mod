@@ -33,7 +33,11 @@ public static class Entry
 
         ScriptManagerBridge.LookupScriptsInAssembly(typeof(Entry).Assembly);
         ModHelper.SubscribeForRunStateHooks("guzhenren_shazhao_synthesis", _ =>
-            new[] { ModelDb.GetById<GuZhenRenShaZhaoSynthesisSystem>(ModelDb.GetId(typeof(GuZhenRenShaZhaoSynthesisSystem))) });
+            new AbstractModel[]
+            {
+                ModelDb.GetById<GuZhenRenShaZhaoSynthesisSystem>(ModelDb.GetId(typeof(GuZhenRenShaZhaoSynthesisSystem))),
+                ModelDb.GetById<GuZhenRenXianGuUniqueSystem>(ModelDb.GetId(typeof(GuZhenRenXianGuUniqueSystem)))
+            });
         CombatManager.Instance.CombatSetUp += _ => BattleStateManager.PublishBattleStart();
         CombatManager.Instance.CombatEnded += _ => BattleStateManager.PublishPostBattle();
         RunManager.Instance.RunStarted += state =>

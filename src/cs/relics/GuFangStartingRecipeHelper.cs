@@ -22,7 +22,7 @@ public static class GuFangStartingRecipeHelper
             }
 
             var seed = $"{runState.Rng.StringSeed}|{player.NetId}|GUZHENREN_START_RECIPE";
-            var idx = (int)((uint)StringHelper.GetDeterministicHashCode(seed) % 13u);
+            var idx = (int)((uint)StringHelper.GetDeterministicHashCode(seed) % 15u);
             await ObtainByIndex(player, idx);
         }
     }
@@ -43,8 +43,9 @@ public static class GuFangStartingRecipeHelper
             9 => RelicCmd.Obtain<RecipeSanShiSanTianGuang>(player),
             10 => RelicCmd.Obtain<RecipeJianLangSanDie>(player),
             11 => RelicCmd.Obtain<RecipeJianHenSuoMing>(player),
-            _ => RelicCmd.Obtain<RecipeAngryBird>(player)
+            12 => RelicCmd.Obtain<RecipeAngryBird>(player),
+            13 => RelicCmd.Obtain<RecipeWanXingFeiYing>(player),
+            _ => RelicCmd.Obtain<RecipeXingXiuQiPan>(player)
         };
     }
 }
-

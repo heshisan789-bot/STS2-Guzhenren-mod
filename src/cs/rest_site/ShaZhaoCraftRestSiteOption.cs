@@ -1,8 +1,6 @@
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.RestSite;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -42,14 +40,13 @@ public sealed class ShaZhaoCraftRestSiteOption : RestSiteOption
             map.Add(reward, recipe);
         }
 
-        var context = new HookPlayerChoiceContext(Owner, LocalContext.NetId ?? Owner.NetId, GameActionType.NonCombat);
-        var pickRecipePrefs = new CardSelectorPrefs(new LocString("guzhenren_ui", "GUZHENREN-SHAZHAO_CRAFT.selectRecipePrompt"), 1)
+        var pickRecipePrefs = new CardSelectorPrefs(new LocString("rest_site_ui", "GUZHENREN-SHAZHAO_CRAFT.selectRecipePrompt"), 1)
         {
             Cancelable = true,
             RequireManualConfirmation = true
         };
 
-        var chosen = (await CardSelectCmd.FromSimpleGrid(context, tempCards, Owner, pickRecipePrefs)).FirstOrDefault();
+        var chosen = (await CardSelectCmd.FromSimpleGrid(new BlockingPlayerChoiceContext(), tempCards, Owner, pickRecipePrefs)).FirstOrDefault();
         if (chosen == null)
         {
             CleanupTempCards(tempCards);
