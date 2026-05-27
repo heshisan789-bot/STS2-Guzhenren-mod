@@ -1,7 +1,7 @@
 {
   "GUZHENREN-FANG_YUAN_CHARACTER.aromaPrinciple": "[sine][blue]此处虽险，倒也正好炼心。[/blue][/sine]",
   "GUZHENREN-FANG_YUAN_CHARACTER.banter.alive.endTurnPing": "先看清局势。",
-  "GUZHENREN-FANG_YUAN_CHARACTER.banter.dead.endTurnPing": "成败本就是常事。",
+  "GUZHENREN-FANG_YUAN_CHARACTER.banter.dead.endTurnPing": "纵身亡魔心不悔！",
   "GUZHENREN-FANG_YUAN_CHARACTER.cardsModifierDescription": "方源的卡牌现在会出现在奖励和商店中。",
   "GUZHENREN-FANG_YUAN_CHARACTER.cardsModifierTitle": "方源卡牌",
   "GUZHENREN-FANG_YUAN_CHARACTER.description": "从蛊界而来的魔道巨擘。以转数、流派与蛊虫构筑自己的道路。",
@@ -13,7 +13,7 @@
   "GUZHENREN-FANG_YUAN_CHARACTER.pronounSubject": "他",
   "GUZHENREN-FANG_YUAN_CHARACTER.title": "古月方源",
   "GUZHENREN-FANG_YUAN_CHARACTER.titleObject": "古月方源",
-  "GUZHENREN-FANG_YUAN_CHARACTER.benMingGuPrompt": "选择1张本命蛊",
+  "GUZHENREN-FANG_YUAN_CHARACTER.benMingGuPrompt": "选择1只本命蛊",
   "GUZHENREN-FANG_YUAN_CHARACTER.unlockText": "用[pink]{Prerequisite}[/pink]进行一局游戏来解锁这个角色。",
   "CARD_POOL.GUZHENREN-GU_ZHEN_REN_SPECIAL_CARD_POOL": "蛊真人特殊牌"
 }

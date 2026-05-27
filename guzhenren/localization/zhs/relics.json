@@ -40,6 +40,9 @@
   "GUZHENREN-LI_DAO_DAO_HEN.title": "力道道痕",
   "GUZHENREN-LI_DAO_DAO_HEN.description": "战斗开始时，获得等同于计数的[gold]力量[/gold]。",
   "GUZHENREN-LI_DAO_DAO_HEN.flavor": "吞尽万物以养己身。",
+  "GUZHENREN-XIAN_GU_CAN_HAI.title": "仙蛊残骸",
+  "GUZHENREN-XIAN_GU_CAN_HAI.description": "在火堆处，你可以额外锻造[blue]{ExtraSmith}[/blue]次。",
+  "GUZHENREN-XIAN_GU_CAN_HAI.flavor": "残骸犹在，余蕴未散。",
   "GUZHENREN-RECIPE_WU_ZHI_QUAN_XIN_JIAN.title": "蛊方：五指拳心剑",
   "GUZHENREN-RECIPE_WU_ZHI_QUAN_XIN_JIAN.description": "可在火堆合成杀招：[gold]五指拳心剑[/gold]。",
   "GUZHENREN-RECIPE_WU_ZHI_QUAN_XIN_JIAN.flavor": "以方为引，聚材成招。",
@@ -78,5 +81,11 @@
   "GUZHENREN-RECIPE_JIAN_HEN_SUO_MING.flavor": "以方为引，聚材成招。",
   "GUZHENREN-RECIPE_ANGRY_BIRD.title": "蛊方：愤怒的小鸟",
   "GUZHENREN-RECIPE_ANGRY_BIRD.description": "可在火堆合成杀招：[gold]愤怒的小鸟[/gold]。",
-  "GUZHENREN-RECIPE_ANGRY_BIRD.flavor": "以方为引，聚材成招。"
+  "GUZHENREN-RECIPE_ANGRY_BIRD.flavor": "以方为引，聚材成招。",
+  "GUZHENREN-RECIPE_WAN_XING_FEI_YING.title": "蛊方：万星飞萤",
+  "GUZHENREN-RECIPE_WAN_XING_FEI_YING.description": "可在火堆合成杀招：[gold]万星飞萤[/gold]。",
+  "GUZHENREN-RECIPE_WAN_XING_FEI_YING.flavor": "以方为引，聚材成招。",
+  "GUZHENREN-RECIPE_XING_XIU_QI_PAN.title": "蛊方：星宿棋盘",
+  "GUZHENREN-RECIPE_XING_XIU_QI_PAN.description": "可在火堆合成杀招：[gold]星宿棋盘[/gold]。",
+  "GUZHENREN-RECIPE_XING_XIU_QI_PAN.flavor": "以方为引，聚材成招。"
 }
