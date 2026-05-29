@@ -1,7 +1,6 @@
 using System;
 using Godot;
 using HarmonyLib;
-using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Models;
 
 namespace Guzhenren.Scripts;
@@ -18,7 +17,9 @@ internal static class FangYuanTopBarIconPatch
     {
         var entry = character.Id.Entry;
         return string.Equals(entry, FangYuanCharacterId, StringComparison.OrdinalIgnoreCase)
-               || string.Equals(entry, FangYuanCharacterIdLower, StringComparison.OrdinalIgnoreCase);
+               || string.Equals(entry, FangYuanCharacterIdLower, StringComparison.OrdinalIgnoreCase)
+               || (entry.Contains("guzhenren", StringComparison.OrdinalIgnoreCase)
+                   && entry.Contains("fang_yuan", StringComparison.OrdinalIgnoreCase));
     }
 
     [HarmonyPatch(typeof(CharacterModel), "get_Icon")]
@@ -30,12 +31,13 @@ internal static class FangYuanTopBarIconPatch
             return true;
         }
 
-        if (!ResourceLoader.Exists(FangYuanIconScenePath))
+        var scene = ResourceLoader.Load<PackedScene>(FangYuanIconScenePath, null, ResourceLoader.CacheMode.Reuse);
+        if (scene == null)
         {
             return true;
         }
 
-        __result = PreloadManager.Cache.GetScene(FangYuanIconScenePath).Instantiate<Control>(PackedScene.GenEditState.Disabled);
+        __result = scene.Instantiate<Control>(PackedScene.GenEditState.Disabled);
         return false;
     }
 
@@ -48,12 +50,13 @@ internal static class FangYuanTopBarIconPatch
             return true;
         }
 
-        if (!ResourceLoader.Exists(FangYuanIconTexturePath))
+        var texture = ResourceLoader.Load<Texture2D>(FangYuanIconTexturePath, null, ResourceLoader.CacheMode.Reuse);
+        if (texture == null)
         {
             return true;
         }
 
-        __result = PreloadManager.Cache.GetTexture2D(FangYuanIconTexturePath);
+        __result = texture;
         return false;
     }
 
@@ -66,12 +69,13 @@ internal static class FangYuanTopBarIconPatch
             return true;
         }
 
-        if (!ResourceLoader.Exists(FangYuanIconTexturePath))
+        var texture = ResourceLoader.Load<Texture2D>(FangYuanIconTexturePath, null, ResourceLoader.CacheMode.Reuse);
+        if (texture == null)
         {
             return true;
         }
 
-        __result = PreloadManager.Cache.GetTexture2D(FangYuanIconTexturePath);
+        __result = texture;
         return false;
     }
 }

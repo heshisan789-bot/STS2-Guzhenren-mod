@@ -1,6 +1,5 @@
 using Godot;
 using HarmonyLib;
-using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.sts2.Core.Nodes.TopBar;
 
 namespace Guzhenren.Scripts;
@@ -13,19 +12,22 @@ internal static class FangYuanTopBarPortraitOverridePatch
     private const string FangYuanIconTexturePath = "res://guzhenren/images/character/FangYuan/Button.png";
 
     [HarmonyPatch(typeof(NTopBarPortrait), nameof(NTopBarPortrait.Initialize))]
-    [HarmonyPrefix]
-    private static bool InitializePrefix(NTopBarPortrait __instance, MegaCrit.Sts2.Core.Entities.Players.Player player)
+    [HarmonyPostfix]
+    private static void InitializePostfix(NTopBarPortrait __instance, MegaCrit.Sts2.Core.Entities.Players.Player player)
     {
         var entry = player.Character.Id.Entry;
         if (!string.Equals(entry, FangYuanCharacterId, System.StringComparison.OrdinalIgnoreCase)
-            && !string.Equals(entry, FangYuanCharacterIdLower, System.StringComparison.OrdinalIgnoreCase))
+            && !string.Equals(entry, FangYuanCharacterIdLower, System.StringComparison.OrdinalIgnoreCase)
+            && !(entry.Contains("guzhenren", System.StringComparison.OrdinalIgnoreCase)
+                 && entry.Contains("fang_yuan", System.StringComparison.OrdinalIgnoreCase)))
         {
-            return true;
+            return;
         }
 
-        if (!ResourceLoader.Exists(FangYuanIconTexturePath))
+        var texture = ResourceLoader.Load<Texture2D>(FangYuanIconTexturePath, null, ResourceLoader.CacheMode.Reuse);
+        if (texture == null)
         {
-            return true;
+            return;
         }
 
         foreach (var child in __instance.GetChildren())
@@ -36,19 +38,14 @@ internal static class FangYuanTopBarPortraitOverridePatch
             }
         }
 
-        var texture = PreloadManager.Cache.GetTexture2D(FangYuanIconTexturePath);
-        var rect = new TextureRect
-        {
-            Texture = texture,
-            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
-            StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered
-        };
+        var rect = new TextureRect { Texture = texture };
+        rect.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
+        rect.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
 
         rect.SetAnchorsPreset(Control.LayoutPreset.FullRect);
         rect.ZIndex = 999;
         rect.MouseFilter = Control.MouseFilterEnum.Ignore;
 
         __instance.AddChild(rect);
-        return false;
     }
 }

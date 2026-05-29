@@ -45,7 +45,7 @@ public sealed class XingNianGu : AbstractGuZhenRenCard
             choiceContext,
             candidates,
             Owner,
-            new CardSelectorPrefs(SelectionScreenPrompt, 0, candidates.Count)));
+            new CardSelectorPrefs(SelectionScreenPrompt, 0, candidates.Count) { Cancelable = true }));
 
         if (selected.Count == 0)
         {

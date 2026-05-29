@@ -1,3 +1,4 @@
+using System.Linq;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
@@ -32,24 +33,29 @@ public sealed class HuoGu : AbstractBenMingGuCard
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
 
-        var handPile = PileType.Hand.GetPile(Owner);
-        var maxSelect = Math.Min(DynamicVars.Cards.IntValue, handPile.Cards.Count);
+        var options = PileType.Hand.GetPile(Owner).Cards.Where(c => !ReferenceEquals(c, this)).ToList();
+        var maxSelect = Math.Min(DynamicVars.Cards.IntValue, options.Count);
         if (maxSelect <= 0)
         {
             return;
         }
 
-        var selected = await CardSelectCmd.FromHand(
-            prefs: new CardSelectorPrefs(SelectionScreenPrompt, 0, maxSelect),
-            context: choiceContext,
-            player: Owner,
-            filter: static _ => true,
-            source: this);
+        var selected = (await CardSelectCmd.FromHand(
+            choiceContext,
+            Owner,
+            new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 0, maxSelect) { Cancelable = true },
+            c => !ReferenceEquals(c, this),
+            this)).ToList();
 
         var exhaustedCount = 0;
         foreach (var card in selected)
         {
-            await CardPileCmd.Add(card, PileType.Exhaust);
+            if (card.Pile?.Type != PileType.Hand)
+            {
+                continue;
+            }
+
+            await CardCmd.Exhaust(choiceContext, card);
             exhaustedCount++;
         }
 

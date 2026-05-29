@@ -29,18 +29,18 @@ public sealed class MaLiXuYing : AbstractXuYingCard
             return;
         }
 
-        var selectableCount = hand.Cards.Count(c => !ReferenceEquals(c, this));
-        if (selectableCount <= 0)
+        var options = hand.Cards.Where(c => !ReferenceEquals(c, this)).ToList();
+        if (options.Count == 0)
         {
             return;
         }
 
         var selected = (await CardSelectCmd.FromHand(
-            prefs: new CardSelectorPrefs(SelectionScreenPrompt, 0, 1),
-            context: choiceContext,
-            player: Owner,
-            filter: c => !ReferenceEquals(c, this),
-            source: this)).ToList();
+            choiceContext,
+            Owner,
+            new CardSelectorPrefs(SelectionScreenPrompt, 1) { Cancelable = true },
+            c => !ReferenceEquals(c, this),
+            this)).ToList();
 
         if (selected.Count > 0)
         {

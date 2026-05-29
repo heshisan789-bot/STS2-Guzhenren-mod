@@ -21,7 +21,7 @@ namespace Guzhenren.Scripts;
 [ModInitializer("Init")]
 public static class Entry
 {
-    private const string BuildStamp = "2026-05-17.1";
+    private const string BuildStamp = "2026-05-30.1";
     private static bool _loggedIndexOutOfRange;
 
     public static void Init()

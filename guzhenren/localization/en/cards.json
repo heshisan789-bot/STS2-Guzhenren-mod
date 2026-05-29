@@ -15,6 +15,7 @@
   "GUZHENREN-HUO_SHI.description": "给予目标{FenShaoPower:diff}层[gold]焚烧[/gold]。",
   "GUZHENREN-HUO_GU.title": "火蛊",
   "GUZHENREN-HUO_GU.description": "消耗至多{Cards:diff}张手牌。\n每消耗1张牌，给予目标{FenShaoPower:diff}层[gold]焚烧[/gold]1次。",
+  "GUZHENREN-HUO_GU.selectionScreenPrompt": "选择至多{Amount}张手牌消耗",
   "GUZHENREN-HUO_MAO_SAN_ZHANG_GU.title": "火冒三丈蛊",
   "GUZHENREN-HUO_MAO_SAN_ZHANG_GU.description": "给予[gold]焚烧[/gold]时，若层数小于3，将其提高到3。",
   "GUZHENREN-ANGRY_BIRD.title": "愤怒的小鸟",
