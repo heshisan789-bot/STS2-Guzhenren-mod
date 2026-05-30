@@ -20,7 +20,12 @@ public abstract class AbstractGuZhenRenCard : CustomCardModel
 
     public int BaseRank { get; private set; } = 1;
     public int Rank { get; private set; } = 1;
-    public GuZhenRenDao PrimaryDao { get; private set; } = GuZhenRenDao.None;
+    private GuZhenRenDao _primaryDao = GuZhenRenDao.None;
+    public GuZhenRenDao PrimaryDao
+    {
+        get => RuiYiPower.IsActive ? GuZhenRenDao.JianDao : _primaryDao;
+        private set => _primaryDao = value;
+    }
     public string DaoName => PrimaryDao.ToDisplayName();
 
     public virtual bool IsBenMingGu => false;

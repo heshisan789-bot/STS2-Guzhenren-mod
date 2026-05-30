@@ -125,7 +125,16 @@
   "GUZHENREN-PAI_NAN_POWER.title": "排难",
   "GUZHENREN-PAI_NAN_POWER.description": "每当你抽到[gold]状态[/gold]牌时，将其[gold]消耗[/gold]并抽[blue]{Amount}[/blue]张牌。",
   "GUZHENREN-PAI_NAN_POWER.smartDescription": "每当你抽到[gold]状态[/gold]牌时，将其[gold]消耗[/gold]并抽[blue]{Amount}[/blue]张牌。",
+  "GUZHENREN-RUI_YI_POWER.title": "锐意",
+  "GUZHENREN-RUI_YI_POWER.description": "本场战斗中所有流派的牌均视为[gold]剑道[/gold]。",
+  "GUZHENREN-RUI_YI_POWER.smartDescription": "本场战斗中所有流派的牌均视为[gold]剑道[/gold]。",
   "GUZHENREN-SHE_XIN_DRAW_REDUCTION_POWER.title": "摄心",
   "GUZHENREN-SHE_XIN_DRAW_REDUCTION_POWER.description": "下回合少抽[blue]{Amount}[/blue]张牌。",
-  "GUZHENREN-SHE_XIN_DRAW_REDUCTION_POWER.smartDescription": "下回合少抽[blue]{Amount}[/blue]张牌。"
+  "GUZHENREN-SHE_XIN_DRAW_REDUCTION_POWER.smartDescription": "下回合少抽[blue]{Amount}[/blue]张牌。",
+  "GUZHENREN-BIAN_HUA_DAO_DAO_HEN_POWER.title": "Change Path Dao Marks",
+  "GUZHENREN-BIAN_HUA_DAO_DAO_HEN_POWER.description": "When you play a card with a Dao tag, convert these Dao Marks into that Dao's Dao Marks (amount unchanged).",
+  "GUZHENREN-BIAN_HUA_DAO_DAO_HEN_POWER.smartDescription": "Convert to matching Dao Marks when playing Dao cards",
+  "GUZHENREN-WAN_WU_DA_TONG_BIAN_POWER.title": "Myriad Unity Transformation",
+  "GUZHENREN-WAN_WU_DA_TONG_BIAN_POWER.description": "When you would gain a non-Dao-Mark power, gain that many [gold]Change Path Dao Marks[/gold] instead.",
+  "GUZHENREN-WAN_WU_DA_TONG_BIAN_POWER.smartDescription": "Non-Dao-Mark powers become Change Path Dao Marks"
 }

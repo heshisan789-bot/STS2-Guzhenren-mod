@@ -125,7 +125,19 @@
   "GUZHENREN-PAI_NAN_POWER.title": "排难",
   "GUZHENREN-PAI_NAN_POWER.description": "每当你抽到[gold]状态[/gold]牌时，将其[gold]消耗[/gold]并抽[blue]{Amount}[/blue]张牌。",
   "GUZHENREN-PAI_NAN_POWER.smartDescription": "每当你抽到[gold]状态[/gold]牌时，将其[gold]消耗[/gold]并抽[blue]{Amount}[/blue]张牌。",
+  "GUZHENREN-RUI_YI_POWER.title": "锐意",
+  "GUZHENREN-RUI_YI_POWER.description": "本场战斗中所有流派的牌均视为[gold]剑道[/gold]。",
+  "GUZHENREN-RUI_YI_POWER.smartDescription": "本场战斗中所有流派的牌均视为[gold]剑道[/gold]。",
   "GUZHENREN-SHE_XIN_DRAW_REDUCTION_POWER.title": "摄心",
   "GUZHENREN-SHE_XIN_DRAW_REDUCTION_POWER.description": "下回合少抽[blue]{Amount}[/blue]张牌。",
-  "GUZHENREN-SHE_XIN_DRAW_REDUCTION_POWER.smartDescription": "下回合少抽[blue]{Amount}[/blue]张牌。"
+  "GUZHENREN-SHE_XIN_DRAW_REDUCTION_POWER.smartDescription": "下回合少抽[blue]{Amount}[/blue]张牌。",
+  "GUZHENREN-BIAN_HUA_DAO_DAO_HEN_POWER.title": "变化道道痕",
+  "GUZHENREN-BIAN_HUA_DAO_DAO_HEN_POWER.description": "你打出带有某流派标签的卡牌时，将变化道道痕转化为对应流派的道痕（层数不变）。",
+  "GUZHENREN-BIAN_HUA_DAO_DAO_HEN_POWER.smartDescription": "打出流派卡牌时转化为对应道痕",
+  "GUZHENREN-WAN_WU_DA_TONG_BIAN_POWER.title": "万物大同变",
+  "GUZHENREN-WAN_WU_DA_TONG_BIAN_POWER.description": "你获得非道痕类能力时，将其转化为等量层数的[gold]变化道道痕[/gold]。",
+  "GUZHENREN-WAN_WU_DA_TONG_BIAN_POWER.smartDescription": "非道痕能力转化为变化道道痕",
+  "GUZHENREN-ZHUI_MING_HUO_POWER.title": "追命火",
+  "GUZHENREN-ZHUI_MING_HUO_POWER.description": "回合开始时，给予5×[blue]{Amount}[/blue]层[gold]焚烧[/gold]。\n若场上存在[gold]追命火[/gold]，任意意图为攻击的敌人在行动结束后，将获得1层[gold]追命火[/gold]。",
+  "GUZHENREN-ZHUI_MING_HUO_POWER.smartDescription": "每回合给予5×[blue]{Amount}[/blue]层[gold]焚烧[/gold]。\n攻击者行动结束后感染1层[gold]追命火[/gold]。"
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Combat;
@@ -12,7 +13,7 @@ namespace Guzhenren.Scripts;
 [GuZhenRenDaoPool(GuZhenRenDao.ZhouDao)]
 public sealed class RenRuGu : AbstractGuZhenRenCard
 {
-    private static readonly List<int> HpHistory = [];
+    private static readonly Dictionary<ulong, List<int>> HpHistoryByNetId = new();
     private static bool _hooksRegistered;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
@@ -33,23 +34,25 @@ public sealed class RenRuGu : AbstractGuZhenRenCard
 
         CombatManager.Instance.CombatSetUp += state =>
         {
-            HpHistory.Clear();
-            var player = state.Players.FirstOrDefault();
-            if (player != null)
-            {
-                HpHistory.Add(player.Creature.CurrentHp);
-            }
+            HpHistoryByNetId.Clear();
+            foreach (var player in state.Players)
+                HpHistoryByNetId[player.NetId] = [player.Creature.CurrentHp];
         };
 
-        CombatManager.Instance.CombatEnded += _ => HpHistory.Clear();
+        CombatManager.Instance.CombatEnded += _ => HpHistoryByNetId.Clear();
 
         CombatManager.Instance.TurnEnded += state =>
         {
             if (state.CurrentSide != CombatSide.Player) return;
-            var player = state.Players.FirstOrDefault();
-            if (player != null)
+            foreach (var player in state.Players)
             {
-                HpHistory.Add(player.Creature.CurrentHp);
+                if (!HpHistoryByNetId.TryGetValue(player.NetId, out var list))
+                {
+                    list = [];
+                    HpHistoryByNetId[player.NetId] = list;
+                }
+
+                list.Add(player.Creature.CurrentHp);
             }
         };
     }
@@ -58,14 +61,17 @@ public sealed class RenRuGu : AbstractGuZhenRenCard
     {
         EnsureHooksRegistered();
 
-        if (CombatState == null || HpHistory.Count == 0)
+        if (CombatState == null || Owner == null)
             return Owner?.Creature.CurrentHp ?? 0;
 
-        int targetIndex = Math.Max(0, CombatState.RoundNumber - 2);
-        if (targetIndex >= HpHistory.Count)
-            targetIndex = HpHistory.Count - 1;
+        if (!HpHistoryByNetId.TryGetValue(Owner.NetId, out var history) || history.Count == 0)
+            return Owner.Creature.CurrentHp;
 
-        return HpHistory[targetIndex];
+        var targetIndex = Math.Max(0, CombatState.RoundNumber - 2);
+        if (targetIndex >= history.Count)
+            targetIndex = history.Count - 1;
+
+        return history[targetIndex];
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

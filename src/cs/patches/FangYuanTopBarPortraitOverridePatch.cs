@@ -1,6 +1,7 @@
 using Godot;
 using HarmonyLib;
 using MegaCrit.sts2.Core.Nodes.TopBar;
+using MegaCrit.Sts2.Core.Logging;
 
 namespace Guzhenren.Scripts;
 
@@ -10,6 +11,7 @@ internal static class FangYuanTopBarPortraitOverridePatch
     private const string FangYuanCharacterId = "GUZHENREN-FANG_YUAN_CHARACTER";
     private const string FangYuanCharacterIdLower = "guzhenren-fang_yuan_character";
     private const string FangYuanIconTexturePath = "res://guzhenren/images/character/FangYuan/Button.png";
+    private static bool _loggedOnce;
 
     [HarmonyPatch(typeof(NTopBarPortrait), nameof(NTopBarPortrait.Initialize))]
     [HarmonyPostfix]
@@ -27,7 +29,18 @@ internal static class FangYuanTopBarPortraitOverridePatch
         var texture = ResourceLoader.Load<Texture2D>(FangYuanIconTexturePath, null, ResourceLoader.CacheMode.Reuse);
         if (texture == null)
         {
+            if (!_loggedOnce)
+            {
+                _loggedOnce = true;
+                Log.Error($"[GuZhenRen][TopBarPortrait] texture load failed: entry={entry} path={FangYuanIconTexturePath}");
+            }
             return;
+        }
+
+        if (!_loggedOnce)
+        {
+            _loggedOnce = true;
+            Log.Info($"[GuZhenRen][TopBarPortrait] overriding portrait: entry={entry} size={__instance.Size} path={FangYuanIconTexturePath}");
         }
 
         foreach (var child in __instance.GetChildren())

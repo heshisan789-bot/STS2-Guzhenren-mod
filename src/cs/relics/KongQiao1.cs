@@ -19,6 +19,7 @@ public abstract class AbstractKongQiaoRelic : CustomRelicModel
 
     private bool _effectUsedThisCombat;
 
+    private int _maxHpBonusApplied;
     private int _xp;
 
     public abstract int Rank { get; }
@@ -49,14 +50,30 @@ public abstract class AbstractKongQiaoRelic : CustomRelicModel
         }
     }
 
+    [SavedProperty]
+    public int MaxHpBonusApplied
+    {
+        get => _maxHpBonusApplied;
+        set
+        {
+            AssertMutable();
+            _maxHpBonusApplied = Math.Max(0, value);
+        }
+    }
+
     public override string PackedIconPath => GuZhenRenArtPaths.GetRelicIcon(RelicImageName);
     protected override string PackedIconOutlinePath => GuZhenRenArtPaths.GetRelicOutline(RelicImageName);
     protected override string BigIconPath => GuZhenRenArtPaths.GetRelicIcon(RelicImageName);
 
-    public override Task BeforeCombatStart()
+    public override async Task AfterObtained()
+    {
+        await EnsureMaxHpBonusApplied();
+    }
+
+    public override async Task BeforeCombatStart()
     {
         _effectUsedThisCombat = false;
-        return Task.CompletedTask;
+        await EnsureMaxHpBonusApplied();
     }
 
     public override async Task BeforeCombatStartLate()
@@ -69,6 +86,11 @@ public abstract class AbstractKongQiaoRelic : CustomRelicModel
 
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if (Rank >= 6)
+        {
+            return Task.CompletedTask;
+        }
+
         if (_effectUsedThisCombat || cardPlay.IsAutoPlay || !QualifiesForKongQiao(cardPlay.Card))
         {
             return Task.CompletedTask;
@@ -123,6 +145,15 @@ public abstract class AbstractKongQiaoRelic : CustomRelicModel
         }
 
         nextKongQiao.Xp = overflowXp;
+        if (nextKongQiao.Rank >= 6)
+        {
+            var desiredBonus = nextKongQiao.Rank;
+            if (desiredBonus > MaxHpBonusApplied)
+            {
+                await CreatureCmd.GainMaxHp(Owner.Creature, desiredBonus - MaxHpBonusApplied);
+            }
+            nextKongQiao.MaxHpBonusApplied = desiredBonus;
+        }
         await RelicCmd.Replace(this, nextKongQiao);
         AutoUpgradeBenMingGu(nextKongQiao.Rank);
     }
@@ -138,6 +169,11 @@ public abstract class AbstractKongQiaoRelic : CustomRelicModel
 
     private bool ShouldMakeFreeInCombat(CardModel card)
     {
+        if (Rank >= 6)
+        {
+            return false;
+        }
+
         if (_effectUsedThisCombat || !QualifiesForKongQiao(card))
         {
             return false;
@@ -169,6 +205,24 @@ public abstract class AbstractKongQiaoRelic : CustomRelicModel
         }
 
         Xp += amount;
+    }
+
+    private async Task EnsureMaxHpBonusApplied()
+    {
+        if (!IsMutable || Rank < 6)
+        {
+            return;
+        }
+
+        var desired = Rank;
+        if (MaxHpBonusApplied >= desired)
+        {
+            return;
+        }
+
+        var delta = desired - MaxHpBonusApplied;
+        MaxHpBonusApplied = desired;
+        await CreatureCmd.GainMaxHp(Owner.Creature, delta);
     }
 
     private int GetXpReward(RoomType roomType)

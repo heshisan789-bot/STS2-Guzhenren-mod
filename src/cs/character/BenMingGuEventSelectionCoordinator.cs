@@ -7,9 +7,11 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Events;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
@@ -119,6 +121,11 @@ internal static class BenMingGuEventSelectionCoordinator
                 player.DiscoveredCards.Add(toAdd.Id);
             }
             var addResult = await CardPileCmd.Add(toAdd, PileType.Deck);
+            CardCmd.PreviewCardPileAdd(addResult, 1.2f, CardPreviewStyle.EventLayout);
+            if (addResult.success)
+            {
+                addResult.cardAdded.Pile?.InvokeCardAddFinished();
+            }
             Log.Info(
                 $"BenMingGu chosen card={toAdd.Id.Entry} success={addResult.success} pile={toAdd.Pile?.Type.ToString() ?? "null"} deckCount={player.Deck.Cards.Count} discovered={player.DiscoveredCards.Contains(toAdd.Id)} pool={toAdd.Pool.Id.Entry}");
 
@@ -146,13 +153,17 @@ internal static class BenMingGuEventSelectionCoordinator
                 ]);
         }
 
+        var hoverTips = new[] { HoverTipFactory.FromCard(selectedCard) }
+            .Concat(selectedCard.HoverTips)
+            .ToArray();
+
         return new EventOption(
             eventModel,
             OnChosen,
             selectedCard.TitleLocString,
             new LocString("events", "GUZHENREN-BEN_MING_GU_SELECTION.optionDescription"),
             $"GUZHENREN-BEN_MING_GU_SELECTION.options.{selectedCard.Id.Entry}",
-            Array.Empty<MegaCrit.Sts2.Core.HoverTips.IHoverTip>());
+            hoverTips);
     }
 
     private static void SetEventState(EventModel eventModel, LocString description, IEnumerable<EventOption> options)
